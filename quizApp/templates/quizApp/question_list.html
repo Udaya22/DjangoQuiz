@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block content %}
+<br>
+<div>
+    <div class="card" style="width: 16rem; background-color: black; border: 5px solid #00FFFF; float: right;" >
+        <div class="card-body">
+          <p class="card-text">Time left: <span id="mins">
+            {{time_mins}}
+        </span> mins and <span id="secs">{{time_secs}}</span> secs</p>
+        </div>
+    </div>
+    <form method="POST" id="myForm">
+        {% csrf_token %}
+        {% for q in questions %}
+            <h5>
+                {{ q.question }}
+            </h5>
+            <div class="custom-control custom-radio">
+                <input type="radio" id="radio1" name="{{q.question}}" class="custom-control-input" value="1">
+                <label class="custom-control-label" for="radio1">{{q.option_1}}</label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input type="radio" id="radio2" name="{{q.question}}" class="custom-control-input" value="2">
+                <label class="custom-control-label" for="radio2">{{q.option_2}}</label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input type="radio" id="radio3" name="{{q.question}}" class="custom-control-input" value="3">
+                <label class="custom-control-label" for="radio3">{{q.option_3}}</label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input type="radio" id="radio4" name="{{q.question}}" class="custom-control-input" value="4">
+                <label class="custom-control-label" for="radio4">{{q.option_4}}</label>
+            </div>
+            <br><br>
+        {% endfor %}
+        <input type="submit" value="Submit Test" class="btn btn-md btn-primary">
+    </form>
+        
+</div>
+<script>
+    window.onload = (event) => {
+        console.log('page is fully loaded');
+        var secLeft = {{time_secs}};
+        var minLeft = {{time_mins}};
+        setInterval(function () {
+            if(secLeft==0 && minLeft==0){
+                alert("Time limit exceeded, your test will be submitted")
+                document.getElementById("myForm").submit();
+            }
+            if(secLeft==0){
+                minLeft-=1
+                secLeft=59
+            }
+            else
+                secLeft-=1
+            document.getElementById("mins").innerHTML = minLeft;
+            document.getElementById("secs").innerHTML = secLeft;
+            
+        }, 1000)
+    };
+ 
+</script>
+
+{% endblock %}

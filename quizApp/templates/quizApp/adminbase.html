@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block content %}
+<br><br>
+
+{% if user.is_staff %}
+<div class="row">
+    <div class="col-sm-4">
+        <div style="position: relative; top: 30%;left: 30%;">
+            <h2>Welcome {{ user }}</h2>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div style="margin-top: 40px; height:500px; border-left: 2px solid grey;">
+            {% block adminblock %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+{% else %}
+<div class="alert alert-danger" role="alert">
+    You are not authorized to access this page
+ <a href="{% url 'quizapp:home' %}" class="alert-link">Go back</a>
+</div>
+{% endif %}
+
+{% endblock %}

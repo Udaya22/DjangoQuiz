@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block content %}
+<h4 style="text-align: center; margin: 10px;">Result History</h4>
+{% if result_list %}
+<table class="table table-hover table-dark">
+    <thead>
+        <tr>
+            <th scope="col" style="width: 30%;">Time</th>
+            <th scope="col">User</th>
+            <th scope="col">Topic</th>
+            <th scope="col">Score</th>
+            <th scope="col">Result</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for result in result_list %}
+        <tr>
+            <td>{{result.date_time}}</td>
+            <td>{{result.user.username}}</td>
+            <td>{{result.topic}}</td>
+            <td>{{result.total_correct}}/{{result.total_question}}</td>
+            {% if result.passed %}
+            <td>Pass</td>
+            {% else %}
+            <td>Fail</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+{% if user.is_staff %}
+<h4>No results to display</h4>
+{% else%}
+<h4>You have not taken any test yet</h4>
+Select a topic from <a href="{% url 'quizapp:home' %}">here</a> to start the test
+{% endif %}
+{% endif %}
+{% endblock %}

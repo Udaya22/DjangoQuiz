@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    <title>Document</title>
+</head>
+<body>
+    <!-- style="width: 960px; margin: 0 auto;" -->
+    <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light" style="padding-left:20px; padding-right:20px; background-color: #00FFFF;">
+        
+        <a class="navbar-brand" href="{% url 'quizapp:home' %}">Home</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            
+            {% if not user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Log In</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'main:signup' %}">Sign Up</a></li>
+            {% elif not user.is_staff%}
+                <li class="nav-item"><a class="nav-link" href="{% url 'quizapp:all_results' %}">My Result History</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'quizapp:admin_dash' %}">Admin Area</a></li>
+            {% endif %}
+            </ul>
+            
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav ">   
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <span class="navbar-text nav-link active">Welcome {{user}}</span>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Log Out</a></li>	
+                    {% endif %}
+                </ul>		  
+            </div>
+        </div>  
+    </nav>
+    {% block content %}
+    {% endblock %}
+    </div>
+    
+</body>
+</html>

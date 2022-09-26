@@ -1,0 +1,37 @@
+{% extends 'quizApp/adminbase.html' %}
+{% load bootstrap5 %}
+{% block adminblock %}
+<form method="post">
+    {% csrf_token %}
+    <div style="padding-left: 50px; width: 80%">
+        {% bootstrap_field form.question %}
+        <div class="row">
+            <div class="col-md-4">
+                {% bootstrap_field form.option_1 %}
+            </div>
+            <div class="col-md-4">
+                {% bootstrap_field form.option_2 %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                {% bootstrap_field form.option_3 %}
+            </div>
+            <div class="col-md-4">
+                {% bootstrap_field form.option_4 %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                {% bootstrap_field form.correct_option %}
+            </div>
+            <div class="col-md-4">
+                {% bootstrap_field form.topic %}
+            </div>
+        </div>
+        <br>
+        <input type="submit" value="Save" class="btn btn-md btn-secondary" name="save">
+        <input type="submit" value="Save and add another" class="btn btn-md btn-secondary" name="addnew">
+    </div>
+</form>
+{% endblock %}

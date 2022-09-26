@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block content %}
+{% load convert_str %}
+
+<div class="results">
+    <p>Test Completed</p>
+    <p>Your Score: {{result.total_correct}}/{{result.total_question}}</p>
+    {% if result.passed %}
+    <p>Congrats!! You scored above 80%</p>
+    {% else %}
+    <p>You didn't pass. Score above 80% to pass the test</p>
+    {% endif %}
+    <a href="{% url 'quizapp:all_results' %}" style="text-decoration: none;">View all results</a> | 
+    <a href="{% url 'quizapp:home' %}" style="text-decoration: none;">Go to Home</a>
+    
+    <br><br>
+    <h4>Review your answers below</h4>
+    
+    {% for k,v in result.answers.items %}
+        {{forloop.counter}}. {{k}} <br>
+        {% for k1,v1 in v.items %}
+            {{k1}}: {{v1}} <br>
+        {% endfor %}
+        <br>
+    {% endfor %}
+</div>
+
+{% endblock %}

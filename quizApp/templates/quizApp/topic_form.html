@@ -1,0 +1,11 @@
+{% extends 'quizApp/adminbase.html' %}
+{% load bootstrap5 %}
+{% block adminblock %}
+<div style="padding-left: 50px; width: 80% ;">
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input type="submit" value="Save" class="btn btn-md btn-secondary" name="save">
+    </form>
+</div>
+{% endblock %}

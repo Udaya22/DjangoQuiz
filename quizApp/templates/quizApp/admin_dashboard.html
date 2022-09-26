@@ -1,0 +1,20 @@
+{% extends 'quizApp/adminbase.html' %}
+{% load bootstrap5 %}
+{% block adminblock %}
+
+<div style="padding-left: 20%; padding-top: 10%;">
+    <form action="{% url 'quizapp:add_topic' %}">
+        <input type="submit" class="btn btn-lg" style="background-color:#00FFFF;" value="Create a new Topic">
+    </form>
+    <br>
+    <form action="{% url 'quizapp:add_question' %}">
+        <input type="submit" class="btn btn-lg" style="background-color:#00FFFF;" value="Add a Question">
+    </form> 
+    <br>
+    <form action="{% url 'quizapp:all_results' %}">
+        <input type="submit" class="btn btn-lg" style="background-color:#00FFFF;" value="View Test Results">
+    </form>  
+</div>
+
+{% endblock %}
+        

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load bootstrap5 %}
+{% block content %}
+<br><br>
+{% if user.is_authenticated %}
+<h2>Select Topic to start the test</h2>
+By clicking on start test a timer will run at the top of the page. 
+                After completing the questions you can click on the submit button to get your score.
+                The test will be automatically submitted after the dedicated time.
+                <p>All the best!!!</p>
+
+{% else %}
+<h2>Login to take test</h2>
+{% endif %}
+<br><br>
+<div class="row">
+    {% for topic in topics %}
+    <div class="col-sm-4">
+        <div class="card" style="width: 18rem; background-color: black; border: 2px solid #00FFFF;">    
+            <div class="card-body">
+            <h5 class="card-title">{{topic.name}}</h5>
+            <p class="card-text">
+                <p>Number of questions: {{topic.questions.count}}</p>
+                <p>Time given: {{topic.time}} Mins</p>
+            {% if user.is_authenticated %}
+            <form action="{% url 'quizapp:start_test' pk=topic.pk %}">
+                <input type="submit" onclick="return confirm('Are you sure, you want to start the test?')" class="btn btn-secondary" id="{{topic.id}}" name= "{{topic.name}}" value="Start Test">
+            </form>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
