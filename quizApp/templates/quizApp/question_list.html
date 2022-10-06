@@ -45,7 +45,6 @@
         var minLeft = {{time_mins}};
         setInterval(function () {
             if(secLeft==0 && minLeft==0){
-                alert("Time limit exceeded, your test will be submitted")
                 document.getElementById("myForm").submit();
             }
             if(secLeft==0){
